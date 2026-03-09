@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ياسر الخطيب · بروفايل محاسب مبرمج</title>
+  <!-- Google Fonts (يدعم العربية) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f0f3fa 0%, #e6ecf5 100%);
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', 'Tajawal', sans-serif;
+      transition: background 0.2s;
+    }
+
+    /* دعم RTL / LTR حسب اللغة */
+    .profile-container[dir="ltr"] {
+      text-align: left;
+    }
+    .profile-container[dir="rtl"] {
+      text-align: right;
+    }
+
+    .profile-container {
+      max-width: 1300px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* رأس الصفحة مع زر التبديل */
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+      background: rgba(255,255,255,0.5);
+      backdrop-filter: blur(12px);
+      padding: 0.8rem 2rem;
+      border-radius: 60px;
+      box-shadow: 0 10px 20px -10px rgba(79,70,229,0.15);
+      border: 1px solid rgba(255,255,255,0.6);
+    }
+
+    .lang-toggle {
+      background: white;
+      border: none;
+      padding: 0.6rem 1.6rem;
+      border-radius: 40px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #4f46e5;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid #e0e7ff;
+    }
+    .lang-toggle i {
+      font-size: 1.2rem;
+    }
+    .lang-toggle:hover {
+      background: #4f46e5;
+      color: white;
+      border-color: #4f46e5;
+      transform: scale(1.02);
+    }
+
+    /* البطاقة الشخصية الرئيسية */
+    .profile-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      animation: softFade 0.8s ease-out;
+    }
+
+    .avatar {
+      width: 130px;
+      height: 130px;
+      margin: 0 auto 1.5rem;
+      border-radius: 50%;
+      box-shadow: 0 20px 30px -10px rgba(79, 70, 229, 0.35);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: transparent;  /* تمت إزالة التدرج لصالح الصورة */
+      padding: 0;
+      overflow: hidden;
+      border: 3px solid white;
+    }
+    .avatar:hover {
+      transform: scale(1.02) translateY(-5px);
+      box-shadow: 0 30px 40px -12px rgba(124, 58, 237, 0.45);
+    }
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+    }
+
+    #profile-name {
+      font-size: 2.6rem;
+      font-weight: 700;
+      background: linear-gradient(to right, #1e1b4b, #2d2a5e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+      line-height: 1.3;
+    }
+
+    #profile-title {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #4b5563;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(4px);
+      display: inline-block;
+      padding: 0.4rem 1.6rem;
+      border-radius: 40px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      margin-bottom: 0.75rem;
+    }
+
+    #profile-location {
+      color: #4f46e5;
+      font-weight: 500;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+
+    /* شبكة البطاقات */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.8rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(8px);
+      border-radius: 32px;
+      padding: 1.8rem 1.6rem;
+      box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.08),
+                  inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+      transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+      border: 1px solid rgba(255,255,255,0.5);
+      animation: cardGlide 0.5s ease-out backwards;
+      animation-delay: calc(0.08s * var(--card-order, 0));
+    }
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.01);
+      box-shadow: 0 30px 45px -12px rgba(79, 70, 229, 0.25),
+                  0 0 0 2px rgba(255,255,255,0.8) inset,
+                  0 0 0 3px rgba(124, 58, 237, 0.2);
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px dashed #ddd9fe;
+      padding-bottom: 0.8rem;
+    }
+    .card-header i {
+      font-size: 1.8rem;
+      color: #4f46e5;
+      background: rgba(79, 70, 229, 0.1);
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 18px;
+      transition: background 0.2s;
+    }
+    .card:hover .card-header i {
+      background: #4f46e5;
+      color: white;
+    }
+    .card-header h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #1e1b4b;
+    }
+
+    /* النصوص العامة */
+    .about-text {
+      color: #2d2a5e;
+      line-height: 1.6;
+      font-weight: 400;
+      font-size: 0.98rem;
+    }
+
+    /* شريط المهارات */
+    .skills-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 0.6rem;
+    }
+    .skill-tag {
+      background: linear-gradient(115deg, #ede9fe, #e0e7ff);
+      color: #3730a3;
+      padding: 0.5rem 1.1rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border: 1px solid white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+      transition: all 0.2s;
+    }
+    .skill-tag:hover {
+      background: #4f46e5;
+      color: white;
+      transform: scale(1.05);
+      border-color: #4f46e5;
+    }
+
+    /* عناصر الخبرة والتعليم */
+    .exp-item, .edu-item {
+      margin-bottom: 1.3rem;
+    }
+    .exp-item .title, .edu-item .title {
+      font-weight: 700;
+      color: #1e1b4b;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.05rem;
+    }
+    .exp-item .title i, .edu-item .title i {
+      color: #7c3aed;
+      font-size: 0.9rem;
+      width: 1.2rem;
+    }
+    .exp-meta, .edu-meta {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.8rem;
+      color: #6b7280;
+      margin: 0.3rem 0 0.4rem 1.7rem;
+    }
+    .exp-desc, .edu-desc {
+      color: #374151;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-left: 1.7rem;
+    }
+    /* تعديل بسيط للـ RTL */
+    .profile-container[dir="rtl"] .exp-desc,
+    .profile-container[dir="rtl"] .edu-desc,
+    .profile-container[dir="rtl"] .exp-meta,
+    .profile-container[dir="rtl"] .edu-meta {
+      margin-right: 1.7rem;
+      margin-left: 0;
+    }
+
+    /* جهات الاتصال */
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin: 1rem 0;
+      color: #1f2937;
+      font-size: 0.98rem;
+    }
+    .contact-detail i {
+      width: 28px;
+      color: #4f46e5;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      justify-content: center;
+    }
+    .social-links a {
+      background: white;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #4f46e5;
+      font-size: 1.4rem;
+      box-shadow: 0 10px 15px -8px rgba(79,70,229,0.2);
+      border: 1px solid rgba(255,255,255,0.7);
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .social-links a:hover {
+      background: #4f46e5;
+      color: white;
+      transform: translateY(-5px) scale(1.1);
+    }
+
+    /* الاهتمامات */
+    .interests-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-top: 0.5rem;
+    }
+    .interest-item {
+      background: rgba(79, 70, 229, 0.05);
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #2d2a5e;
+      border: 1px solid white;
+      transition: 0.15s;
+    }
+    .interest-item:hover {
+      background: #4f46e5;
+      color: white;
+      border-color: #4f46e5;
+    }
+
+    /* عنوان القسم داخل البطاقة المزدوجة */
+    .subsection-title {
+      font-weight: 600;
+      color: #1e1b4b;
+      margin: 1rem 0 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    /* animations */
+    @keyframes softFade {
+      0% { opacity: 0; transform: translateY(-15px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes cardGlide {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ترتيب تأخير البطاقات */
+    .card:nth-child(1) { --card-order: 1; }
+    .card:nth-child(2) { --card-order: 2; }
+    .card:nth-child(3) { --card-order: 3; }
+    .card:nth-child(4) { --card-order: 4; }
+    .card:nth-child(5) { --card-order: 5; }
+    .card:nth-child(6) { --card-order: 6; }
+
+    @media (max-width: 640px) {
+      body { padding: 1.2rem; }
+      #profile-name { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="profile-container" id="profile-container" dir="rtl"> <!-- نبدأ بالعربية كما طلبت -->
+    <!-- شريط علوي مع زر التبديل -->
+    <div class="header-bar">
+      <div class="branding"><i class="fas fa-address-card" style="color:#4f46e5;"></i> <span style="font-weight:500;">البروفايل الشخصي</span></div>
+      <button class="lang-toggle" id="langToggle"><i class="fas fa-globe"></i> <span id="toggleLabel">English</span></button>
+    </div>
+
+    <!-- رأس البروفايل مع الصورة المطلوبة -->
+    <div class="profile-header">
+      <div class="avatar">
+        <img src="https://i.postimg.cc/02PmgnQp/IMG-7494.jpg" alt="ياسر الخطيب">
+      </div>
+      <h1 id="profile-name">ياسر الخطيب</h1>
+      <div id="profile-title" class="title-tag">رئيس حسابات في شركة نايف للأغذية - الكويت</div>
+      <div id="profile-location" class="location"><i class="fas fa-map-pin"></i> <span>الكويت</span></div>
+    </div>
+
+    <!-- شبكة البطاقات (تحتوي على أماكن سيتم ملؤها) -->
+    <div class="cards-grid" id="cards-grid">
+      <!-- بطاقة "نبذة" About -->
+      <div class="card">
+        <div class="card-header"><i class="fas fa-user-pen"></i><h3 id="card-title-about">نبذة</h3></div>
+        <div id="about-text" class="about-text"></div>
+      </div>
+
+      <!-- بطاقة "المهارات" Skills -->
+      <div class="card">
+        <div class="card-header"><i class="fas fa-code"></i><h3 id="card-title-skills">المهارات</h3></div>
+        <div id="skills-container" class="skills-tags"></div>
+      </div>
+
+      <!-- بطاقة "الخبرات" Experience -->
+      <div class="card">
+        <div class="card-header"><i class="fas fa-briefcase"></i><h3 id="card-title-experience">الخبرات</h3></div>
+        <div id="experience-container"></div>
+      </div>
+
+      <!-- بطاقة "التعليم" Education -->
+      <div class="card">
+        <div class="card-header"><i class="fas fa-graduation-cap"></i><h3 id="card-title-education">التعليم</h3></div>
+        <div id="education-container"></div>
+      </div>
+
+      <!-- بطاقة "التواصل" Contact + social -->
+      <div class="card">
+        <div class="card-header"><i class="fas fa-address-card"></i><h3 id="card-title-contact">التواصل</h3></div>
+        <div id="contact-details"></div>
+        <div class="social-links" id="social-links">
+          <!-- روابط افتراضية قابلة للتخصيص لاحقاً -->
+          <a href="#" aria-label="github"><i class="fab fa-github"></i></a>
+          <a href="#" aria-label="linkedin"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="x"><i class="fab fa-x-twitter"></i></a>
+        </div>
+      </div>
+
+      <!-- بطاقة "الاهتمامات واللغات" Interests & Languages -->
+      <div class="card">
+        <div class="card-header"><i class="fas fa-heart"></i><h3 id="card-title-interests-lang">الاهتمامات واللغات</h3></div>
+        <div id="interests-section">
+          <div class="subsection-title" id="interests-subtitle">الاهتمامات</div>
+          <div id="interests-container" class="interests-wrap"></div>
+        </div>
+        <div id="languages-section" style="margin-top:1.5rem;">
+          <div class="subsection-title" id="languages-subtitle">اللغات</div>
+          <div id="languages-container" class="interests-wrap"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- تذييل قابل للترجمة -->
+    <div style="text-align: center; margin-top: 3rem; color: #5b5d8a; font-size: 0.9rem; opacity: 0.7; border-top: 1px dashed #cbd5e1; padding-top: 1.5rem;">
+      <i class="fas fa-crown" style="color: #fbbf24;"></i> <span id="footer-text">ياسر الخطيب · محاسب يبرمج</span>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // تعريف الترجمات (العربية - الإنجليزية)
+      const translations = {
+        en: {
+          // عناوين البطاقات
+          cardAbout: "about",
+          cardSkills: "skills",
+          cardExperience: "experience",
+          cardEducation: "education",
+          cardContact: "contact",
+          cardInterestsLang: "interests & languages",
+          interestsSub: "interests",
+          languagesSub: "languages",
+
+          // الرأس
+          name: "Yasser Elkhateeb",           // تعديل حسب الطلب
+          title: "Head Accountant at Naif Food Company, Kuwait",
+          location: "Kuwait",
+
+          // نبذة
+          about: "I am an accountant with a passion for programming and technology. I love designing software that helps people in their work. Tell me your idea and I will try to implement it for you in the simplest way.",
+
+          // المهارات
+          skills: ["Accounting", "Excel", "JavaScript", "Python", "Software Design", "Data Analysis", "Problem Solving"],
+
+          // الخبرة
+          experience: [
+            {
+              title: "Head Accountant",
+              company: "Naif Food Company, Kuwait",
+              period: "2011 - present",
+              description: "Managing accounting operations, financial reporting, and implementing software solutions to streamline processes."
+            }
+          ],
+
+          // التعليم
+          education: [
+            {
+              degree: "Bachelor of Commerce",
+              institution: "Alexandria University, Egypt",
+              period: "2000",
+              description: "Major in Accounting"
+            }
+          ],
+
+          // التواصل
+          contact: {
+            phone: "0096567011143",
+            email: "yasser@mail.com"
+          },
+
+          // الاهتمامات
+          interests: ["Programming", "Technology", "Software Design", "Reading", "Chess"],
+
+          // اللغات
+          languages: ["Arabic (Native)", "English (Intermediate)"],
+
+          // تذييل
+          footer: "Yasser Elkhateeb · accountant who codes"
+        },
+
+        ar: {
+          cardAbout: "نبذة",
+          cardSkills: "المهارات",
+          cardExperience: "الخبرات",
+          cardEducation: "التعليم",
+          cardContact: "التواصل",
+          cardInterestsLang: "الاهتمامات واللغات",
+          interestsSub: "الاهتمامات",
+          languagesSub: "اللغات",
+
+          name: "ياسر الخطيب",
+          title: "رئيس حسابات في شركة نايف للأغذية - الكويت",
+          location: "الكويت",
+
+          about: "أنا محاسب شغوف بالبرمجة والتكنولوجيا. أحب تصميم البرامج التي تساعد الناس في عملها. عرّفني بفكرتك وسأحاول تنفيذها لك بأبسط طريقة.",
+
+          skills: ["محاسبة", "إكسل", "جافا سكريبت", "بايثون", "تصميم برامج", "تحليل بيانات", "حل المشكلات"],
+
+          experience: [
+            {
+              title: "رئيس حسابات",
+              company: "شركة نايف للأغذية - الكويت",
+              period: "2011 - حتى الآن",
+              description: "إدارة عمليات المحاسبة، التقارير المالية، وتنفيذ حلول برمجية لتبسيط العمليات."
+            }
+          ],
+
+          education: [
+            {
+              degree: "بكالوريوس التجارة",
+              institution: "جامعة الإسكندرية - مصر",
+              period: "2000",
+              description: "تخصص محاسبة"
+            }
+          ],
+
+          contact: {
+            phone: "0096567011143",
+            email: "yasser@mail.com"
+          },
+
+          interests: ["برمجة", "تكنولوجيا", "تصميم برامج", "قراءة", "شطرنج"],
+          languages: ["العربية (الأم)", "الإنجليزية (متوسط)"],
+
+          footer: "ياسر الخطيب · محاسب يبرمج"
+        }
+      };
+
+      let currentLang = 'ar'; // نبدأ بالعربية
+
+      // عناصر الصفحة
+      const container = document.getElementById('profile-container');
+      const toggleBtn = document.getElementById('langToggle');
+      const toggleLabel = document.getElementById('toggleLabel');
+
+      // عناوين البطاقات
+      const cardTitleAbout = document.getElementById('card-title-about');
+      const cardTitleSkills = document.getElementById('card-title-skills');
+      const cardTitleExp = document.getElementById('card-title-experience');
+      const cardTitleEdu = document.getElementById('card-title-education');
+      const cardTitleContact = document.getElementById('card-title-contact');
+      const cardTitleInterests = document.getElementById('card-title-interests-lang');
+      const interestsSub = document.getElementById('interests-subtitle');
+      const languagesSub = document.getElementById('languages-subtitle');
+
+      // الرأس
+      const profileName = document.getElementById('profile-name');
+      const profileTitle = document.getElementById('profile-title');
+      const profileLocation = document.getElementById('profile-location');
+
+      // الحقول
+      const aboutDiv = document.getElementById('about-text');
+      const skillsContainer = document.getElementById('skills-container');
+      const expContainer = document.getElementById('experience-container');
+      const eduContainer = document.getElementById('education-container');
+      const contactDiv = document.getElementById('contact-details');
+      const interestsDiv = document.getElementById('interests-container');
+      const languagesDiv = document.getElementById('languages-container');
+      const footerSpan = document.getElementById('footer-text');
+
+      // دالة عرض المحتوى حسب اللغة
+      function renderContent(lang) {
+        const t = translations[lang];
+
+        // تحديث عناوين البطاقات
+        cardTitleAbout.innerText = t.cardAbout;
+        cardTitleSkills.innerText = t.cardSkills;
+        cardTitleExp.innerText = t.cardExperience;
+        cardTitleEdu.innerText = t.cardEducation;
+        cardTitleContact.innerText = t.cardContact;
+        cardTitleInterests.innerText = t.cardInterestsLang;
+        interestsSub.innerText = t.interestsSub;
+        languagesSub.innerText = t.languagesSub;
+
+        // الرأس
+        profileName.innerText = t.name;
+        profileTitle.innerText = t.title;
+        profileLocation.innerHTML = `<i class="fas fa-map-pin"></i> ${t.location}`;
+
+        // نبذة
+        aboutDiv.innerText = t.about;
+
+        // المهارات
+        skillsContainer.innerHTML = '';
+        t.skills.forEach(skill => {
+          const span = document.createElement('span');
+          span.className = 'skill-tag';
+          span.innerText = skill;
+          skillsContainer.appendChild(span);
+        });
+
+        // الخبرة
+        expContainer.innerHTML = '';
+        t.experience.forEach(exp => {
+          const item = document.createElement('div');
+          item.className = 'exp-item';
+          item.innerHTML = `
+            <div class="title"><i class="fas fa-circle" style="font-size:0.4rem;"></i> ${exp.title} · ${exp.company}</div>
+            <div class="exp-meta">${exp.period}</div>
+            <div class="exp-desc">${exp.description}</div>
+          `;
+          expContainer.appendChild(item);
+        });
+
+        // التعليم
+        eduContainer.innerHTML = '';
+        t.education.forEach(edu => {
+          const item = document.createElement('div');
+          item.className = 'edu-item';
+          item.innerHTML = `
+            <div class="title"><i class="fas fa-book-open"></i> ${edu.degree}</div>
+            <div class="edu-meta">${edu.institution} · ${edu.period}</div>
+            <div class="edu-desc">${edu.description}</div>
+          `;
+          eduContainer.appendChild(item);
+        });
+
+        // التواصل
+        contactDiv.innerHTML = `
+          <div class="contact-detail"><i class="fas fa-phone-alt"></i> ${t.contact.phone}</div>
+          <div class="contact-detail"><i class="fas fa-envelope"></i> ${t.contact.email}</div>
+        `;
+
+        // الاهتمامات
+        interestsDiv.innerHTML = '';
+        t.interests.forEach(interest => {
+          const span = document.createElement('span');
+          span.className = 'interest-item';
+          span.innerText = interest;
+          interestsDiv.appendChild(span);
+        });
+
+        // اللغات
+        languagesDiv.innerHTML = '';
+        t.languages.forEach(langItem => {
+          const span = document.createElement('span');
+          span.className = 'interest-item';
+          span.innerText = langItem;
+          languagesDiv.appendChild(span);
+        });
+
+        // تحديث التذييل
+        footerSpan.innerText = t.footer;
+
+        // تحديث اتجاه الصفحة وزر اللغة
+        if (lang === 'ar') {
+          container.setAttribute('dir', 'rtl');
+          toggleLabel.innerText = 'English';
+        } else {
+          container.setAttribute('dir', 'ltr');
+          toggleLabel.innerText = 'العربية';
+        }
+      }
+
+      // تبديل اللغة عند الضغط على الزر
+      function toggleLanguage() {
+        currentLang = currentLang === 'ar' ? 'en' : 'ar';
+        renderContent(currentLang);
+      }
+
+      toggleBtn.addEventListener('click', toggleLanguage);
+
+      // التحميل الأولي بالعربية
+      renderContent('ar');
+    })();
+  </script>
+</body>
+</html>
